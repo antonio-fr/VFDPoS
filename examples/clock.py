@@ -1,21 +1,40 @@
 #!/usr/bin/python
 # -*- coding: utf8 -*-
 
+# Example for VFDPoS library for WN VFD
+# Displays date and time
+# Copyright (C) 2015  Antoine FERRON
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, version 3 of the License.
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>
+
 import vfdpos
 import time
 
-wnpos = vfdpos.vfd_pos(0x0201)
+wnpos = vfdpos.vfd_pos(0x0200)
 print "PRESS CTRL+C TO QUIT"
+
+def printdate(onepos):
+		present_time = time.localtime()
+		onepos.poscur(1,1)
+		remaining = 60 - present_time.tm_sec
+		date = time.strftime("%a %d %b %Y", present_time).center(20)
+		onepos.write_msg(date)
+		hour = time.strftime("%H:%M", present_time).center(20)
+		onepos.poscur(2,1)
+		onepos.write_msg(hour)
+		time.sleep(remaining)
+
 try:
 	while True:
-		wnpos.poscur(1,1)
-		prestime = time.localtime()
-		date = time.strftime("%a %d %b %Y", prestime).center(20)
-		wnpos.write_msg(date)
-		hour = time.strftime("%H:%M", prestime).center(20)
-		wnpos.poscur(3,1)
-		wnpos.write_msg(hour) 
-		time.sleep(10)
+		printdate(wnpos)
 except KeyboardInterrupt:
 	pass
 wnpos.close()
