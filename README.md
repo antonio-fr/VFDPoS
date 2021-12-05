@@ -90,7 +90,7 @@ Set the VFD charset. See your WN operational manual documentation for char code.
 During initilisation, WN VFD is automatically set up to 0x31 = Code Page 858. Don't change it unless you really have specific need, this would cause issues with write_msg function.
 
 Character tables are available in :
-http://www.wincor-nixdorf.com/internet/cae/servlet/contentblob/614268/publicationFile/60592/BA6x_Character_Appendix_english.pdf
+https://www.dieboldnixdorf.com/-/media/diebold/ag-downloads/poslotterysystems/manuals/peripherals/baxx/ba63_character_appendix_german.pdf
 
     MyVFD.set_charset(CHARSET_CODE)
 
